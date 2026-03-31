@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amigos Landscaping — Closer Knowledge Quiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green-900: #1a2e1a;
+      --green-800: #223d22;
+      --green-700: #2d5a2d;
+      --green-600: #3a7a3a;
+      --green-500: #4a9a4a;
+      --green-400: #6ab86a;
+      --green-300: #8fd18f;
+      --green-200: #b8e4b8;
+      --green-100: #daf2da;
+      --green-50: #f0faf0;
+      --earth-900: #3d2e1a;
+      --earth-700: #6b4d2a;
+      --earth-500: #8b6b3a;
+      --earth-300: #c4a76a;
+      --earth-100: #f5eed8;
+      --red-500: #c0392b;
+      --red-100: #fce4e4;
+      --amber-500: #d4930a;
+      --amber-100: #fff7e0;
+      --white: #ffffff;
+      --gray-50: #f8f9fa;
+      --gray-100: #f0f1f3;
+      --gray-200: #dfe1e5;
+      --gray-300: #c4c8cf;
+      --gray-500: #6b7280;
+      --gray-700: #3d4452;
+      --gray-900: #1a1d24;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+      --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--gray-50);
+      color: var(--gray-900);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .app-header {
+      background: var(--green-900);
+      color: var(--white);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .app-header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+
+    .app-header .badge {
+      background: var(--green-600);
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    /* ---- START SCREEN ---- */
+    .start-screen {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    .start-screen .logo-mark {
+      width: 80px;
+      height: 80px;
+      background: var(--green-700);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 2.5rem;
+    }
+
+    .start-screen h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: var(--green-900);
+      margin-bottom: 0.5rem;
+    }
+
+    .start-screen .subtitle {
+      color: var(--gray-500);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .info-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .info-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .info-card .num {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--green-700);
+    }
+
+    .info-card .label {
+      font-size: 0.75rem;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .start-btn {
+      background: var(--green-700);
+      color: var(--white);
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 1rem 3rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-md);
+    }
+
+    .start-btn:hover {
+      background: var(--green-600);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .note {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--gray-500);
+      font-style: italic;
+    }
+
+    /* ---- PROGRESS BAR ---- */
+    .progress-bar-container {
+      background: var(--gray-200);
+      height: 6px;
+      border-radius: 3px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green-600), var(--green-400));
+      border-radius: 3px;
+      transition: width 0.4s ease;
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--gray-500);
+      font-weight: 500;
+    }
+
+    /* ---- QUESTION CARD ---- */
+    .question-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      padding: 2rem;
+      margin-bottom: 1rem;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .question-meta {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .tag-category {
+      background: var(--green-100);
+      color: var(--green-700);
+    }
+
+    .tag-service {
+      background: var(--earth-100);
+      color: var(--earth-700);
+    }
+
+    .tag-scenario {
+      background: var(--amber-100);
+      color: var(--amber-500);
+    }
+
+    .question-text {
+      font-size: 1.1rem;
+      font-weight: 500;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      color: var(--gray-900);
+    }
+
+    /* ---- MC OPTIONS ---- */
+    .options-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .option-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      width: 100%;
+      padding: 0.9rem 1rem;
+      background: var(--gray-50);
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      text-align: left;
+      line-height: 1.5;
+      transition: all 0.15s;
+      color: var(--gray-700);
+    }
+
+    .option-btn:hover:not(.selected):not(.correct):not(.incorrect) {
+      border-color: var(--green-400);
+      background: var(--green-50);
+    }
+
+    .option-btn .letter {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--gray-500);
+      transition: all 0.15s;
+    }
+
+    .option-btn.selected {
+      border-color: var(--green-500);
+      background: var(--green-50);
+    }
+
+    .option-btn.selected .letter {
+      background: var(--green-600);
+      color: var(--white);
+    }
+
+    .option-btn.correct {
+      border-color: var(--green-500);
+      background: var(--green-100);
+    }
+
+    .option-btn.correct .letter {
+      background: var(--green-600);
+      color: var(--white);
+    }
+
+    .option-btn.incorrect {
+      border-color: var(--red-500);
+      background: var(--red-100);
+    }
+
+    .option-btn.incorrect .letter {
+      background: var(--red-500);
+      color: var(--white);
+    }
+
+    .option-btn.dimmed {
+      opacity: 0.5;
+    }
+
+    /* ---- SCENARIO INPUT ---- */
+    .scenario-input {
+      width: 100%;
+      min-height: 140px;
+      padding: 1rem;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      resize: vertical;
+      transition: border-color 0.2s;
+      color: var(--gray-900);
+    }
+
+    .scenario-input:focus {
+      outline: none;
+      border-color: var(--green-400);
+    }
+
+    .scenario-input:disabled {
+      background: var(--gray-50);
+    }
+
+    /* ---- FEEDBACK ---- */
+    .feedback {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .feedback-correct {
+      background: var(--green-100);
+      border: 1px solid var(--green-300);
+      color: var(--green-900);
+    }
+
+    .feedback-incorrect {
+      background: var(--red-100);
+      border: 1px solid #f0aaaa;
+      color: #7a1a1a;
+    }
+
+    .feedback-scenario {
+      background: var(--amber-100);
+      border: 1px solid var(--earth-300);
+      color: var(--earth-900);
+    }
+
+    .feedback strong {
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    .key-points {
+      margin-top: 0.75rem;
+      padding-left: 1.25rem;
+    }
+
+    .key-points li {
+      margin-bottom: 0.25rem;
+      font-size: 0.85rem;
+    }
+
+    /* ---- BUTTONS ---- */
+    .action-bar {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--green-700);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--green-600);
+    }
+
+    .btn-primary:disabled {
+      background: var(--gray-300);
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: var(--gray-100);
+      color: var(--gray-700);
+      border: 1px solid var(--gray-200);
+    }
+
+    .btn-secondary:hover {
+      background: var(--gray-200);
+    }
+
+    .btn-grade {
+      background: var(--earth-700);
+      color: var(--white);
+    }
+
+    .btn-grade:hover {
+      background: var(--earth-500);
+    }
+
+    /* ---- SCENARIO SELF-GRADE ---- */
+    .self-grade-bar {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .grade-btn {
+      flex: 1;
+      padding: 0.5rem;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .grade-btn:hover { border-color: var(--gray-300); }
+    .grade-btn.grade-full { border-color: var(--green-500); background: var(--green-50); color: var(--green-700); }
+    .grade-btn.grade-half { border-color: var(--amber-500); background: var(--amber-100); color: var(--amber-500); }
+    .grade-btn.grade-miss { border-color: var(--red-500); background: var(--red-100); color: var(--red-500); }
+
+    /* ---- RESULTS SCREEN ---- */
+    .results-screen {
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    .results-score-ring {
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 1.5rem;
+      position: relative;
+    }
+
+    .results-score-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .results-score-ring circle { fill: none; stroke-width: 10; }
+    .ring-bg { stroke: var(--gray-200); }
+    .ring-fill { stroke: var(--green-500); stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+
+    .ring-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ring-text .pct { font-size: 2.5rem; font-weight: 700; color: var(--green-700); line-height: 1; }
+    .ring-text .of { font-size: 0.85rem; color: var(--gray-500); }
+
+    .results-verdict {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .results-desc {
+      color: var(--gray-500);
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+
+    .results-breakdown {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gray-200);
+      text-align: left;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .breakdown-header {
+      padding: 0.75rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gray-500);
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--gray-100);
+      font-size: 0.9rem;
+    }
+
+    .breakdown-row:last-child { border-bottom: none; }
+
+    .breakdown-label { color: var(--gray-700); }
+    .breakdown-value { font-weight: 600; }
+    .bv-correct { color: var(--green-600); }
+    .bv-partial { color: var(--amber-500); }
+    .bv-incorrect { color: var(--red-500); }
+
+    .review-section {
+      margin-top: 2rem;
+      text-align: left;
+    }
+
+    .review-section h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .review-item {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .review-item.review-correct { border-left: 4px solid var(--green-500); }
+    .review-item.review-partial { border-left: 4px solid var(--amber-500); }
+    .review-item.review-incorrect { border-left: 4px solid var(--red-500); }
+
+    .review-q { font-weight: 500; margin-bottom: 0.5rem; font-size: 0.95rem; }
+    .review-a { font-size: 0.85rem; color: var(--gray-500); }
+    .review-a strong { color: var(--gray-700); }
+
+    @media (max-width: 600px) {
+      .info-cards { grid-template-columns: 1fr; }
+      .container { padding: 1rem; }
+      .question-card { padding: 1.25rem; }
+      .start-screen h2 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-header">
+  <h1>🌿 Amigos Landscaping</h1>
+  <span class="badge" id="headerBadge">Closer Quiz</span>
+</div>
+
+<div class="container" id="app"></div>
+
+<script src="questions.js"></script>
+<script>
+(function() {
+  const app = document.getElementById('app');
+  const badge = document.getElementById('headerBadge');
+  const QUIZ_SIZE = 30;
+  let questions = [];
+  let currentIndex = 0;
+  let answers = [];
+  let showingFeedback = false;
+
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function startQuiz() {
+    questions = shuffle(ALL_QUESTIONS).slice(0, QUIZ_SIZE);
+    currentIndex = 0;
+    answers = new Array(QUIZ_SIZE).fill(null);
+    showingFeedback = false;
+    badge.textContent = `Q1 / ${QUIZ_SIZE}`;
+    renderQuestion();
+  }
+
+  function renderStart() {
+    badge.textContent = 'Closer Quiz';
+    const totalMC = ALL_QUESTIONS.filter(q => q.type === 'mc').length;
+    const totalScenario = ALL_QUESTIONS.filter(q => q.type === 'scenario').length;
+    app.innerHTML = `
+      <div class="start-screen">
+        <div class="logo-mark">🌿</div>
+        <h2>Service Knowledge Quiz</h2>
+        <p class="subtitle">Inbound Closer Training &amp; Certification</p>
+        <div class="info-cards">
+          <div class="info-card">
+            <div class="num">${ALL_QUESTIONS.length}</div>
+            <div class="label">Total Questions</div>
+          </div>
+          <div class="info-card">
+            <div class="num">${QUIZ_SIZE}</div>
+            <div class="label">Per Session</div>
+          </div>
+          <div class="info-card">
+            <div class="num">${totalScenario}</div>
+            <div class="label">Scenarios</div>
+          </div>
+        </div>
+        <button class="start-btn" onclick="window.__startQuiz()">Start Quiz</button>
+        <p class="note">Each session pulls ${QUIZ_SIZE} random questions from the bank.<br>You may reference the Service Catalog in Notion during the quiz.</p>
+      </div>
+    `;
+  }
+
+  function renderQuestion() {
+    const q = questions[currentIndex];
+    const pct = ((currentIndex) / QUIZ_SIZE * 100).toFixed(0);
+    const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+    const isMC = q.type === 'mc';
+
+    let optionsHTML = '';
+    if (isMC) {
+      optionsHTML = `<ul class="options-list">${q.options.map((opt, i) =>
+        `<li><button class="option-btn" data-idx="${i}" onclick="window.__selectOption(${i})">
+          <span class="letter">${letters[i]}</span>
+          <span>${opt}</span>
+        </button></li>`
+      ).join('')}</ul>`;
+    } else {
+      optionsHTML = `<textarea class="scenario-input" id="scenarioInput" placeholder="Write your response as if you're on a live call with the client…"></textarea>`;
+    }
+
+    app.innerHTML = `
+      <div class="progress-text">
+        <span>Question ${currentIndex + 1} of ${QUIZ_SIZE}</span>
+        <span>${pct}% complete</span>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" style="width: ${pct}%"></div>
+      </div>
+      <div class="question-card">
+        <div class="question-meta">
+          <span class="tag tag-category">${q.category}</span>
+          <span class="tag tag-service">${q.service}</span>
+          ${q.type === 'scenario' ? '<span class="tag tag-scenario">Scenario</span>' : ''}
+        </div>
+        <div class="question-text">${q.question}</div>
+        ${optionsHTML}
+        <div id="feedbackArea"></div>
+        <div class="action-bar" id="actionBar">
+          ${isMC ? '' : `<button class="btn btn-primary" onclick="window.__submitScenario()">Submit Answer</button>`}
+        </div>
+      </div>
+    `;
+  }
+
+  window.__selectOption = function(idx) {
+    if (showingFeedback) return;
+    showingFeedback = true;
+    const q = questions[currentIndex];
+    const isCorrect = idx === q.answer;
+    answers[currentIndex] = { type: 'mc', selected: idx, correct: isCorrect, score: isCorrect ? 1 : 0 };
+
+    document.querySelectorAll('.option-btn').forEach((btn, i) => {
+      if (i === q.answer) btn.classList.add('correct');
+      else if (i === idx && !isCorrect) btn.classList.add('incorrect');
+      else btn.classList.add('dimmed');
+    });
+
+    const fb = document.getElementById('feedbackArea');
+    fb.innerHTML = `
+      <div class="feedback ${isCorrect ? 'feedback-correct' : 'feedback-incorrect'}">
+        <strong>${isCorrect ? '✅ Correct!' : '❌ Incorrect'}</strong>
+        ${q.explanation}
+      </div>
+    `;
+
+    const bar = document.getElementById('actionBar');
+    bar.innerHTML = `<button class="btn btn-primary" onclick="window.__next()">
+      ${currentIndex < QUIZ_SIZE - 1 ? 'Next Question →' : 'See Results'}
+    </button>`;
+  };
+
+  window.__submitScenario = function() {
+    if (showingFeedback) return;
+    const input = document.getElementById('scenarioInput');
+    const text = input.value.trim();
+    if (!text) { input.style.borderColor = 'var(--red-500)'; return; }
+    showingFeedback = true;
+    input.disabled = true;
+
+    const q = questions[currentIndex];
+    answers[currentIndex] = { type: 'scenario', response: text, score: null };
+
+    const fb = document.getElementById('feedbackArea');
+    fb.innerHTML = `
+      <div class="feedback feedback-scenario">
+        <strong>📋 Key Points to Cover:</strong>
+        ${q.answer}
+        ${q.keyPoints ? `<ul class="key-points">${q.keyPoints.map(p => `<li>${p}</li>`).join('')}</ul>` : ''}
+        <div style="margin-top:0.75rem; font-weight:600; font-size:0.85rem;">How did you do? Grade yourself:</div>
+        <div class="self-grade-bar">
+          <button class="grade-btn grade-full" onclick="window.__gradeScenario(1)">✅ Hit all points</button>
+          <button class="grade-btn grade-half" onclick="window.__gradeScenario(0.5)">⚠️ Partial</button>
+          <button class="grade-btn grade-miss" onclick="window.__gradeScenario(0)">❌ Missed it</button>
+        </div>
+      </div>
+    `;
+
+    const bar = document.getElementById('actionBar');
+    bar.innerHTML = '';
+  };
+
+  window.__gradeScenario = function(score) {
+    answers[currentIndex].score = score;
+    document.querySelectorAll('.grade-btn').forEach(b => b.disabled = true);
+    const bar = document.getElementById('actionBar');
+    bar.innerHTML = `<button class="btn btn-primary" onclick="window.__next()">
+      ${currentIndex < QUIZ_SIZE - 1 ? 'Next Question →' : 'See Results'}
+    </button>`;
+  };
+
+  window.__next = function() {
+    showingFeedback = false;
+    currentIndex++;
+    if (currentIndex >= QUIZ_SIZE) {
+      renderResults();
+    } else {
+      badge.textContent = `Q${currentIndex + 1} / ${QUIZ_SIZE}`;
+      renderQuestion();
+    }
+  };
+
+  function renderResults() {
+    badge.textContent = 'Results';
+    const totalScore = answers.reduce((sum, a) => sum + (a ? a.score || 0 : 0), 0);
+    const pct = Math.round((totalScore / QUIZ_SIZE) * 100);
+    const mcCorrect = answers.filter(a => a && a.type === 'mc' && a.score === 1).length;
+    const mcTotal = answers.filter(a => a && a.type === 'mc').length;
+    const scenarioFull = answers.filter(a => a && a.type === 'scenario' && a.score === 1).length;
+    const scenarioPartial = answers.filter(a => a && a.type === 'scenario' && a.score === 0.5).length;
+    const scenarioMiss = answers.filter(a => a && a.type === 'scenario' && a.score === 0).length;
+    const scenarioTotal = answers.filter(a => a && a.type === 'scenario').length;
+
+    let verdict, desc, ringColor;
+    if (pct >= 85) {
+      verdict = '✅ Ready to Close';
+      desc = 'Strong service knowledge — ready for live calls.';
+      ringColor = 'var(--green-500)';
+    } else if (pct >= 70) {
+      verdict = '⚠️ Almost There';
+      desc = 'Review weak areas below and retake in a couple days.';
+      ringColor = 'var(--amber-500)';
+    } else {
+      verdict = '❌ Needs More Training';
+      desc = 'Spend time in the Service Catalog and Scheduling Map before retaking.';
+      ringColor = 'var(--red-500)';
+    }
+
+    const circumference = 2 * Math.PI * 65;
+    const dashOffset = circumference - (pct / 100) * circumference;
+
+    let reviewHTML = '';
+    questions.forEach((q, i) => {
+      const a = answers[i];
+      if (!a) return;
+      const cls = a.score === 1 ? 'review-correct' : a.score === 0.5 ? 'review-partial' : 'review-incorrect';
+      const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+      let answerDetail = '';
+      if (a.type === 'mc') {
+        answerDetail = `<strong>Your answer:</strong> ${letters[a.selected]} — ${q.options[a.selected]}<br>
+          <strong>Correct:</strong> ${letters[q.answer]} — ${q.options[q.answer]}<br>
+          ${q.explanation}`;
+      } else {
+        answerDetail = `<strong>Your answer:</strong> ${a.response.substring(0, 150)}${a.response.length > 150 ? '…' : ''}<br>
+          <strong>Self-grade:</strong> ${a.score === 1 ? 'Full credit' : a.score === 0.5 ? 'Partial credit' : 'Missed'}`;
+      }
+      reviewHTML += `
+        <div class="review-item ${cls}">
+          <div class="review-q">Q${i + 1}: ${q.question.substring(0, 120)}${q.question.length > 120 ? '…' : ''}</div>
+          <div class="review-a">${answerDetail}</div>
+        </div>`;
+    });
+
+    app.innerHTML = `
+      <div class="results-screen">
+        <div class="results-score-ring">
+          <svg viewBox="0 0 150 150">
+            <circle class="ring-bg" cx="75" cy="75" r="65" />
+            <circle class="ring-fill" cx="75" cy="75" r="65"
+              stroke="${ringColor}"
+              stroke-dasharray="${circumference}"
+              stroke-dashoffset="${dashOffset}" />
+          </svg>
+          <div class="ring-text">
+            <span class="pct">${pct}%</span>
+            <span class="of">${totalScore} / ${QUIZ_SIZE}</span>
+          </div>
+        </div>
+        <div class="results-verdict">${verdict}</div>
+        <p class="results-desc">${desc}</p>
+        <div class="results-breakdown">
+          <div class="breakdown-header">Score Breakdown</div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">Multiple Choice</span>
+            <span class="breakdown-value bv-correct">${mcCorrect} / ${mcTotal} correct</span>
+          </div>
+          ${scenarioTotal > 0 ? `
+          <div class="breakdown-row">
+            <span class="breakdown-label">Scenarios — Full Credit</span>
+            <span class="breakdown-value bv-correct">${scenarioFull}</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">Scenarios — Partial</span>
+            <span class="breakdown-value bv-partial">${scenarioPartial}</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">Scenarios — Missed</span>
+            <span class="breakdown-value bv-incorrect">${scenarioMiss}</span>
+          </div>
+          ` : ''}
+        </div>
+        <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="window.__startQuiz()">Retake Quiz (New Questions)</button>
+          <button class="btn btn-secondary" onclick="window.__renderStart()">Back to Start</button>
+        </div>
+        <div class="review-section">
+          <h3>Full Review</h3>
+          ${reviewHTML}
+        </div>
+      </div>
+    `;
+  }
+
+  window.__startQuiz = startQuiz;
+  window.__renderStart = renderStart;
+  renderStart();
+})();
+</script>
+</body>
+</html>
