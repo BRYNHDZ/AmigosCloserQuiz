@@ -629,8 +629,6 @@
 
   function renderStart() {
     badge.textContent = 'Closer Quiz';
-    const totalMC = ALL_QUESTIONS.filter(q => q.type === 'mc').length;
-    const totalScenario = ALL_QUESTIONS.filter(q => q.type === 'scenario').length;
     app.innerHTML = `
       <div class="start-screen">
         <div class="logo-mark">🌿</div>
@@ -639,15 +637,15 @@
         <div class="info-cards">
           <div class="info-card">
             <div class="num">${ALL_QUESTIONS.length}</div>
-            <div class="label">Total Questions</div>
+            <div class="label">Question Bank</div>
           </div>
           <div class="info-card">
             <div class="num">${QUIZ_SIZE}</div>
             <div class="label">Per Session</div>
           </div>
           <div class="info-card">
-            <div class="num">${totalScenario}</div>
-            <div class="label">Scenarios</div>
+            <div class="num">MC</div>
+            <div class="label">All Multiple Choice</div>
           </div>
         </div>
         <button class="start-btn" onclick="window.__startQuiz()">Start Quiz</button>
